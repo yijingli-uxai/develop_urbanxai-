@@ -222,3 +222,32 @@ footer {
     font-size: 0.8em;
     color: rgba(255, 255, 255, 0.3);
 }
+
+/* Research Theme Enhancements */
+.theme-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(56, 189, 248, 0.1) !important;
+}
+
+.theme-card:hover {
+    background: rgba(56, 189, 248, 0.05) !important;
+    border-color: rgba(56, 189, 248, 0.5) !important;
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.1);
+}
+
+.theme-card h3 {
+    margin-bottom: 1.5em;
+    letter-spacing: 0.05em;
+}
+
+/* Make the case study buttons more subtle within the card */
+.theme-card .actions.small .button {
+    font-size: 0.6em;
+    padding: 0 1.5em;
+    height: 3em;
+    line-height: 3em;
+    margin-bottom: 0.5em;
+    display: block;
+    width: 100%;
+}
+
