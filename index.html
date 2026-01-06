@@ -32,6 +32,50 @@
 							<ul class="actions">
 								<li><a href="#one" class="button scrolly">View Portfolio</a></li>
 							</ul>
+							<div class="research-map-container" style="max-width: 600px; margin: 0 auto 3rem auto;">
+    <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+        <style>
+            .node { cursor: pointer; transition: 0.3s; }
+            .node:hover circle { fill: #38bdf8; r: 12; }
+            .node:hover text { fill: #ffffff; font-weight: bold; }
+            .link { stroke: rgba(56, 189, 248, 0.2); stroke-width: 1.5; }
+        </style>
+        
+        <line x1="250" y1="100" x2="380" y2="175" class="link" />
+        <line x1="380" y1="175" x2="380" y2="325" class="link" />
+        <line x1="380" y1="325" x2="250" y2="400" class="link" />
+        <line x1="250" y1="400" x2="120" y2="325" class="link" />
+        <line x1="120" y1="325" x2="120" y2="175" class="link" />
+        <line x1="120" y1="175" x2="250" y2="100" class="link" />
+        <line x1="250" y1="100" x2="250" y2="400" class="link" />
+        <line x1="120" y1="175" x2="380" y2="325" class="link" />
+
+        <g class="node" onclick="window.location.href='#safety'">
+            <circle cx="250" cy="100" r="8" fill="#38bdf8" />
+            <text x="250" y="80" text-anchor="middle" fill="#38bdf8" font-size="14">Safety</text>
+        </g>
+        <g class="node" onclick="window.location.href='#inequality'">
+            <circle cx="380" cy="175" r="8" fill="#38bdf8" />
+            <text x="400" y="170" text-anchor="start" fill="#38bdf8" font-size="14">Inequality</text>
+        </g>
+        <g class="node" onclick="window.location.href='#mobility'">
+            <circle cx="380" cy="325" r="8" fill="#38bdf8" />
+            <text x="400" y="335" text-anchor="start" fill="#38bdf8" font-size="14">Mobility</text>
+        </g>
+        <g class="node" onclick="window.location.href='#health'">
+            <circle cx="250" cy="400" r="8" fill="#38bdf8" />
+            <text x="250" y="430" text-anchor="middle" fill="#38bdf8" font-size="14">Health</text>
+        </g>
+        <g class="node" onclick="window.location.href='#resilience'">
+            <circle cx="120" cy="325" r="8" fill="#38bdf8" />
+            <text x="100" y="335" text-anchor="end" fill="#38bdf8" font-size="14">Resilience</text>
+        </g>
+        <g class="node" onclick="window.location.href='#sustainability'">
+            <circle cx="120" cy="175" r="8" fill="#38bdf8" />
+            <text x="100" y="170" text-anchor="end" fill="#38bdf8" font-size="14">Sustainability</text>
+        </g>
+    </svg>
+</div>
 						</div>
 					</section>
 
@@ -80,7 +124,7 @@
                             <p>Our lab investigates the complex intersections of urban life. Click a theme to explore our specialized case studies.</p>
         
                             <div class="features">
-                                <section class="theme-card">
+                                <section class="theme-card" id="Urban Safety">
 									<span class="icon solid major fa-shield-alt"></span>
 									<h3>Urban Safety</h3>
 									<ul class="actions small">
@@ -97,7 +141,7 @@
                                     </ul>
                                 </section>
 
-            <section class="theme-card">
+            <section class="theme-card" id="Urban Mobility">
                 <span class="icon solid major fa-bus"></span>
                 <h3>Mobility</h3>
                 <ul class="actions small">
@@ -105,7 +149,7 @@
                 </ul>
             </section>
 
-            <section class="theme-card">
+            <section class="theme-card" id="Urban Health">
                 <span class="icon solid major fa-heartbeat"></span>
                 <h3>Health</h3>
                 <ul class="actions small">
@@ -113,7 +157,7 @@
                 </ul>
             </section>
 
-            <section class="theme-card">
+            <section class="theme-card" id="Urban Resilience">
                 <span class="icon solid major fa-sync-alt"></span>
                 <h3>Resilience</h3>
                 <ul class="actions small">
@@ -121,7 +165,7 @@
                 </ul>
             </section>
 
-            <section class="theme-card">
+            <section class="theme-card" id="Urban Sustainability">
                 <span class="icon solid major fa-leaf"></span>
                 <h3>Sustainability</h3>
                 <ul class="actions small">
@@ -203,5 +247,6 @@
 
 	</body>
 </html>
+
 
 
