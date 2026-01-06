@@ -251,3 +251,18 @@ footer {
     width: 100%;
 }
 
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+.research-map-container svg {
+    animation: pulse 6s infinite ease-in-out;
+}
+
+/* Ensure the links jump smoothly below the header */
+.theme-card {
+    scroll-margin-top: 100px;
+}
+
