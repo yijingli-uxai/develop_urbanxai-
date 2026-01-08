@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<!--
+	Future Imperfect by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Adapted by Raphael Canty
+-->
+<html lang="en">
+<head>
+    <title>Visualising New York's COVID-19 Lockdowns | Covid-19 Impacts on Crime Changes in Cities</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="../assets/css/main.css"/>
+    <link rel="stylesheet" href="../sydney/sydney_lockdown_style.css"/>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../d3.min.js"></script>
+    <script>
+        $(function () {
+            $("#footer").load("../footer.html");
+        });
+    </script>
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="manifest" href="../site.webmanifest">
+    <link rel="mask-icon" href="../safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body class="single is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1><a href="../index.html">COVID-19 and Crime</a></h1>
+        <nav class="links">
+            <ul>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../london.html">London</a></li>
+                <li><a href="../new_york.html">New York</a></li>
+                <li><a href="../sydney.html">Sydney</a></li>
+                <li><a href="../hong_kong.html">Hong Kong</a></li>
+                <li><a href="../compare.html">Comparative Studies</a></li>
+            </ul>
+        </nav>
+        <nav class="main">
+            <ul>
+                <li class="menu">
+                    <a class="fa-bars" href="#menu">Menu</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Menu -->
+    <section id="menu">
+        <nav style="text-align:right;">
+            <a class="button" href="#menu">Close</a>
+        </nav>
+        <!-- Links -->
+        <section>
+            <ul class="links">
+                <li>
+                    <a href="../about.html">
+                        <h3>About</h3>
+                        <p>More about the Study</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="../london.html">
+                        <h3>London</h3>
+                        <p>London Context and Crime Change</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="../new_york.html">
+                        <h3>New York</h3>
+                        <p>New York Context and Crime Change</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="../sydney.html">
+                        <h3>Sydney</h3>
+                        <p>Sydney Context and Crime Change</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="../hong_kong.html">
+                        <h3>Hong Kong</h3>
+                        <p>Hong Kong Context and Crime Change</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="../compare.html">
+                        <h3>Comparative Studies</h3>
+                        <p>Comparison between cities</p>
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </section>
+    <!-- Main -->
+    <div id="main">
+
+        <!-- Post -->
+        <article class="post">
+            <header>
+                <div class="title">
+                    <h2>Visualising New York's Covid-19 Lockdowns</h2>
+                    <p>Visualisation</p>
+                </div>
+                <div class="meta">
+                    <time class="published" datetime="2021-06-01">July 2nd, 2021</time>
+                    <a href="https://www.linkedin.com/in/emily-wu-925b2518b/" class="author"><span
+                            class="name">Emily Wu</span><!--<img src="images/yijing.jpg" alt=""/>--></a>
+                </div>
+            </header>
+            <p>Following the Covid-19 timelines for <a href="../london/london_timeline.html">London</a> and 
+            <a href="../sydney/sydney_timeline.html">Sydney</a>, we expanded the data visualisation to New York State. 
+            Created using <a href="https://d3js.org">d3.js</a>, this interactive visualisation shows New York State's daily 
+            new cases and deaths over time, against the approximate level of lockdown restrictions and events detailing the changing situation.
+            </p>
+
+            <p>Hover over the line chart to see exact numbers of cases. The hollow dots represent events, such as important decisions and 
+            milestones in New York State's coronavirus response. Click on them to see more.
+            </p>
+
+            <div id="newyorkTimeline" style="text-align: center;"></div>
+            <script type="text/javascript" src="./newyork_timeline.js"></script>
+            <div class="eventInfo">
+                <p><b><span id="eventDate"></span></b>
+                    <span id="eventDesc">Click on an event above to view information</span>
+                    <br>
+                    <a id="eventURL" href=""></a></p>
+            </div>
+
+            <p>New York's lockdown is a bit more complex and difficult to quantify into levels than London.
+            The state government started off with the New York State on Pause program, a statewide lockdown.
+            Restrictions then began to ease on a county by county basis, using the newly proposed four-phase reopening
+            plan. Counties could move from phase 1 to phase 4, with each phase having less restrictions than the last, provided
+            they met the necessary metrics for declining hospitalisations and deaths. Restrictions became even more localised following 
+            the micro-clustering strategy which would place new restrictions in cluster areas that had spikes in COVID-19 cases.
+            </p>
+
+            <p>The New York COVID-19 case data was from the <a href="https://github.com/CSSEGISandData/COVID-19">COVID-19 Data Repository by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University</a>. 
+            There were a few pieces of anomalous data that we found, these pieces of data were replaced using the values found from the <a href="https://www.nytimes.com/interactive/2021/us/new-york-covid-cases.html">New York Times Interactive Covid Map</a>. 
+            We looked into the anomalous dates and found that they are likely due to the reasons listed below:
+                <ul>
+                    <li>June 30th 2020: New York City added a backlog of deaths from unspecified dates.</li>
+                    <li>August 20th 2020: New York City removed four previously reported deaths after reviewing records. The state reported four new deaths in other counties.</li>
+                    <li>September 19th 2020: The values we found were initially negative so we checked the <a href="https://www.nytimes.com/interactive/2021/us/new-york-covid-cases.html">New York Times Interactive Covid Map</a> 
+                    and its respective <a href="https://github.com/nytimes/covid-19-data">github</a> only to find another negative value.
+                    We finally checked the <a href="https://health.data.ny.gov/Health/New-York-State-Statewide-COVID-19-Fatalities-by-Co/xymy-pny5">New York State COVID-19 Fatalities by County dataset</a>
+                    which yielded a non-negative result.
+                    </li>
+                    <li>March 24th 2021: After a multiday disruption in reporting data, the New York City health department reported several days’ 
+                    worth of data, leading to a spike in reported cases and deaths in New York State.
+                    </li>
+                </ul>  
+            </p>
+
+            <p>
+            Lockdown level is an indication only, determined by the author based on the lockdown restrictions in New York. 
+            Events were collated from multiple sources, including 
+            <a href="https://en.wikipedia.org/wiki/COVID-19_pandemic_in_New_York_(state)">Wikipedia</a> and 
+            <a href="https://www.governor.ny.gov/news">New York State Governors Pressroom</a>. 
+            Examples from <a href="https://bl.ocks.org/d3noob">d3noob</a> were helpful for creating the visualisation.</p>
+        </article>
+
+    </div>
+
+    <!-- Footer -->
+    <section id="footer"></section>
+
+</div>
+
+<!-- Scripts -->
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/browser.min.js"></script>
+<script src="../assets/js/breakpoints.min.js"></script>
+<script src="../assets/js/util.js"></script>
+<script src="../assets/js/main.js"></script>
+
+</body>
+</html>
