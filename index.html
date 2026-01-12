@@ -33,52 +33,139 @@
 							<ul class="actions">
 								<li><a href="#one" class="button scrolly">View Portfolio</a></li>
 							</ul>
-							<div class="research-map-container" style="max-width: 600px; margin: 0 auto 3rem auto;">
-    <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-        <style>
-            .node { cursor: pointer; transition: 0.3s; }
-            .node:hover circle { fill: #38bdf8; r: 12; }
-            .node:hover text { fill: #ffffff; font-weight: bold; }
-            .link { stroke: rgba(56, 189, 248, 0.2); stroke-width: 1.5; }
-        </style>
-        
-        <line x1="250" y1="100" x2="380" y2="175" class="link" />
-        <line x1="380" y1="175" x2="380" y2="325" class="link" />
-        <line x1="380" y1="325" x2="250" y2="400" class="link" />
-        <line x1="250" y1="400" x2="120" y2="325" class="link" />
-        <line x1="120" y1="325" x2="120" y2="175" class="link" />
-		<line x1="120" y1="325" x2="380" y2="325" class="link" />
-        <line x1="120" y1="175" x2="250" y2="100" class="link" />
-        <line x1="250" y1="400" x2="380" y2="175" class="link" />
-        <line x1="120" y1="175" x2="380" y2="325" class="link" />
-		<line x1="250" y1="400" x2="120" y2="175" class="link" />
-		<line x1="250" y1="400" x2="380" y2="175" class="link" />
+                            <div class="research-map-container" style="max-width: 600px; margin: 0 auto 3rem auto; text-align: center;">
+    <style>
+        :root {
+            --cube-dim: 220px;
+            --translate-z: 110px; /* Half of cube-dim */
+            --urban-blue: #38bdf8;
+        }
 
-        <g class="node" onclick="window.location.href='#Urban Safety'">
-            <circle cx="250" cy="100" r="8" fill="#38bdf8" />
-            <text x="250" y="80" text-anchor="middle" fill="#38bdf8" font-size="14">Urban Safety</text>
-        </g>
-        <g class="node" onclick="window.location.href='#Urban Inequality'">
-            <circle cx="380" cy="175" r="8" fill="#38bdf8" />
-            <text x="400" y="170" text-anchor="start" fill="#38bdf8" font-size="12">Urban Inequality</text>
-        </g>
-        <g class="node" onclick="window.location.href='#Urban Mobility'">
-            <circle cx="380" cy="325" r="8" fill="#38bdf8" />
-            <text x="400" y="335" text-anchor="start" fill="#38bdf8" font-size="14">Urban Mobility</text>
-        </g>
-        <g class="node" onclick="window.location.href='#Urban health'">
-            <circle cx="250" cy="400" r="8" fill="#38bdf8" />
-            <text x="250" y="430" text-anchor="middle" fill="#38bdf8" font-size="14">Urban Health</text>
-        </g>
-        <g class="node" onclick="window.location.href='#Urban resilience'">
-            <circle cx="120" cy="325" r="8" fill="#38bdf8" />
-            <text x="100" y="335" text-anchor="end" fill="#38bdf8" font-size="12">Urban Resilience</text>
-        </g>
-        <g class="node" onclick="window.location.href='#Urban sustainability'">
-            <circle cx="120" cy="175" r="8" fill="#38bdf8" />
-            <text x="100" y="170" text-anchor="end" fill="#38bdf8" font-size="11.5">Urban Sustainability</text>
-        </g>
-    </svg>
+        .cube-scene {
+            width: var(--cube-dim);
+            height: var(--cube-dim);
+            perspective: 800px;
+            margin: 60px auto;
+        }
+
+        .cube-object {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+            cursor: grab;
+        }
+
+        .cube-face {
+            position: absolute;
+            width: var(--cube-dim);
+            height: var(--cube-dim);
+            border: 2px solid var(--urban-blue);
+            background: rgba(15, 23, 42, 0.9); /* Dark theme matching typical web backgrounds */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            color: var(--urban-blue);
+            font-family: sans-serif;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: inset 0 0 30px rgba(56, 189, 248, 0.2);
+            backface-visibility: hidden;
+            transition: 0.3s;
+        }
+
+        .cube-face:hover {
+            background: var(--urban-blue);
+            color: #ffffff;
+            box-shadow: 0 0 20px var(--urban-blue);
+        }
+
+        /* Standard 3D Positioning */
+        .face-front  { transform: rotateY(  0deg) translateZ(var(--translate-z)); }
+        .face-back   { transform: rotateY(180deg) translateZ(var(--translate-z)); }
+        .face-right  { transform: rotateY( 90deg) translateZ(var(--translate-z)); }
+        .face-left   { transform: rotateY(-90deg) translateZ(var(--translate-z)); }
+        .face-top    { transform: rotateX( 90deg) translateZ(var(--translate-z)); }
+        .face-bottom { transform: rotateX(-90deg) translateZ(var(--translate-z)); }
+
+        /* Navigation Classes */
+        .show-0 { transform: rotateY(   0deg); }
+        .show-1 { transform: rotateY(-180deg); }
+        .show-2 { transform: rotateY( -90deg); }
+        .show-3 { transform: rotateY(  90deg); }
+        .show-4 { transform: rotateX( -90deg); }
+        .show-5 { transform: rotateX(  90deg); }
+
+        .cube-controls {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .cube-btn {
+            background: transparent;
+            border: 1px solid var(--urban-blue);
+            color: var(--urban-blue);
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+
+        .cube-btn:hover {
+            background: var(--urban-blue);
+            color: white;
+        }
+    </style>
+
+    <div class="cube-scene">
+        <div class="cube-object show-0" id="urbanCube">
+            <div class="cube-face face-front" onclick="handleCubeClick('#Urban-Safety', 0)">Urban Safety</div>
+            <div class="cube-face face-back" onclick="handleCubeClick('#Urban-Inequality', 1)">Urban Inequality</div>
+            <div class="cube-face face-right" onclick="handleCubeClick('#Urban-Mobility', 2)">Urban Mobility</div>
+            <div class="cube-face face-left" onclick="handleCubeClick('#Urban-Sustainability', 3)">Urban Sustainability</div>
+            <div class="cube-face face-top" onclick="handleCubeClick('#Urban-Health', 4)">Urban Health</div>
+            <div class="cube-face face-bottom" onclick="handleCubeClick('#Urban-Resilience', 5)">Urban Resilience</div>
+        </div>
+    </div>
+
+    <div class="cube-controls">
+        <button class="cube-btn" onclick="rotateCube(0)">Urban Safety</button>
+        <button class="cube-btn" onclick="rotateCube(1)">Urban Inequality</button>
+        <button class="cube-btn" onclick="rotateCube(2)">Urban Mobility</button>
+        <button class="cube-btn" onclick="rotateCube(3)">Urban Sustainability</button>
+        <button class="cube-btn" onclick="rotateCube(4)">Urban Health</button>
+        <button class="cube-btn" onclick="rotateCube(5)">Urban Resilience</button>
+    </div>
+
+    <script>
+        let currentFace = 0;
+        const cube = document.getElementById('urbanCube');
+
+        function rotateCube(faceIndex) {
+            cube.classList.remove('show-0', 'show-1', 'show-2', 'show-3', 'show-4', 'show-5');
+            cube.classList.add('show-' + faceIndex);
+            currentFace = faceIndex;
+        }
+
+        function handleCubeClick(url, faceIndex) {
+            if (currentFace === faceIndex) {
+                // If it's already facing the user, navigate
+                window.location.href = url;
+            } else {
+                // If it's not facing the user, rotate it first
+                rotateCube(faceIndex);
+            }
+        }
+    </script>
 </div>
 						</div>
 					</section>
@@ -251,6 +338,7 @@
 
 	</body>
 </html>
+
 
 
 
