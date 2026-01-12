@@ -37,15 +37,21 @@
     <style>
         :root {
             --cube-dim: 220px;
-            --translate-z: 110px; /* Half of cube-dim */
+            --translate-z: 110px; 
             --urban-blue: #38bdf8;
+            --spin-speed: 12s; /* 360 degrees / 12s = 30 deg/sec */
+        }
+
+        @keyframes continuousRotation {
+            from { transform: rotateX(0deg) rotateY(0deg); }
+            to { transform: rotateX(360deg) rotateY(360deg); }
         }
 
         .cube-scene {
             width: var(--cube-dim);
             height: var(--cube-dim);
             perspective: 800px;
-            margin: 60px auto;
+            margin: 80px auto;
         }
 
         .cube-object {
@@ -53,8 +59,19 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.2);
-            cursor: grab;
+            /* Constant rolling animation */
+            animation: continuousRotation var(--spin-speed) linear infinite;
+            transition: transform 0.8s ease-out;
+        }
+
+        /* Pause animation on hover */
+        .cube-scene:hover .cube-object {
+            animation-play-state: paused;
+        }
+
+        /* Class to stop animation when a specific face is selected */
+        .stop-animation {
+            animation: none !important;
         }
 
         .cube-face {
@@ -62,7 +79,7 @@
             width: var(--cube-dim);
             height: var(--cube-dim);
             border: 2px solid var(--urban-blue);
-            background: rgba(15, 23, 42, 0.9); /* Dark theme matching typical web backgrounds */
+            background: rgba(15, 23, 42, 0.85);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -73,19 +90,18 @@
             font-weight: bold;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 1px;
             box-shadow: inset 0 0 30px rgba(56, 189, 248, 0.2);
-            backface-visibility: hidden;
-            transition: 0.3s;
+            backface-visibility: visible; /* Changed to visible for a "glassy" effect while rolling */
+            transition: background 0.3s, color 0.3s;
+            cursor: pointer;
         }
 
         .cube-face:hover {
             background: var(--urban-blue);
             color: #ffffff;
-            box-shadow: 0 0 20px var(--urban-blue);
         }
 
-        /* Standard 3D Positioning */
+        /* 3D Face Positions */
         .face-front  { transform: rotateY(  0deg) translateZ(var(--translate-z)); }
         .face-back   { transform: rotateY(180deg) translateZ(var(--translate-z)); }
         .face-right  { transform: rotateY( 90deg) translateZ(var(--translate-z)); }
@@ -93,7 +109,7 @@
         .face-top    { transform: rotateX( 90deg) translateZ(var(--translate-z)); }
         .face-bottom { transform: rotateX(-90deg) translateZ(var(--translate-z)); }
 
-        /* Navigation Classes */
+        /* Manual Rotation Target Positions */
         .show-0 { transform: rotateY(   0deg); }
         .show-1 { transform: rotateY(-180deg); }
         .show-2 { transform: rotateY( -90deg); }
@@ -102,7 +118,7 @@
         .show-5 { transform: rotateX(  90deg); }
 
         .cube-controls {
-            margin-top: 20px;
+            margin-top: 40px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -113,21 +129,22 @@
             background: transparent;
             border: 1px solid var(--urban-blue);
             color: var(--urban-blue);
-            padding: 5px 12px;
-            border-radius: 4px;
+            padding: 6px 14px;
+            border-radius: 20px;
             cursor: pointer;
             font-size: 12px;
-            transition: 0.3s;
+            transition: all 0.3s;
         }
 
         .cube-btn:hover {
             background: var(--urban-blue);
             color: white;
+            box-shadow: 0 0 10px var(--urban-blue);
         }
     </style>
 
     <div class="cube-scene">
-        <div class="cube-object show-0" id="urbanCube">
+        <div class="cube-object" id="urbanCube">
             <div class="cube-face face-front" onclick="handleCubeClick('#Urban-Safety', 0)">Urban Safety</div>
             <div class="cube-face face-back" onclick="handleCubeClick('#Urban-Inequality', 1)">Urban Inequality</div>
             <div class="cube-face face-right" onclick="handleCubeClick('#Urban-Mobility', 2)">Urban Mobility</div>
@@ -138,30 +155,42 @@
     </div>
 
     <div class="cube-controls">
-        <button class="cube-btn" onclick="rotateCube(0)">Urban Safety</button>
-        <button class="cube-btn" onclick="rotateCube(1)">Urban Inequality</button>
-        <button class="cube-btn" onclick="rotateCube(2)">Urban Mobility</button>
-        <button class="cube-btn" onclick="rotateCube(3)">Urban Sustainability</button>
-        <button class="cube-btn" onclick="rotateCube(4)">Urban Health</button>
-        <button class="cube-btn" onclick="rotateCube(5)">Urban Resilience</button>
+        <button class="cube-btn" onclick="rotateCube(0)">Safety</button>
+        <button class="cube-btn" onclick="rotateCube(1)">Inequality</button>
+        <button class="cube-btn" onclick="rotateCube(2)">Mobility</button>
+        <button class="cube-btn" onclick="rotateCube(3)">Sustainability</button>
+        <button class="cube-btn" onclick="rotateCube(4)">Health</button>
+        <button class="cube-btn" onclick="rotateCube(5)">Resilience</button>
+        <button class="cube-btn" style="border-color: #fff; color: #fff;" onclick="resumeAnimation()">▶ Resume Spin</button>
     </div>
 
     <script>
-        let currentFace = 0;
+        let isAnimated = true;
+        let currentFace = -1;
         const cube = document.getElementById('urbanCube');
 
         function rotateCube(faceIndex) {
+            isAnimated = false;
+            cube.classList.add('stop-animation');
             cube.classList.remove('show-0', 'show-1', 'show-2', 'show-3', 'show-4', 'show-5');
-            cube.classList.add('show-' + faceIndex);
-            currentFace = faceIndex;
+            
+            // Short delay to allow the browser to register the class removal for transition
+            setTimeout(() => {
+                cube.classList.add('show-' + faceIndex);
+                currentFace = faceIndex;
+            }, 10);
+        }
+
+        function resumeAnimation() {
+            isAnimated = true;
+            cube.classList.remove('stop-animation', 'show-0', 'show-1', 'show-2', 'show-3', 'show-4', 'show-5');
+            currentFace = -1;
         }
 
         function handleCubeClick(url, faceIndex) {
-            if (currentFace === faceIndex) {
-                // If it's already facing the user, navigate
+            if (!isAnimated && currentFace === faceIndex) {
                 window.location.href = url;
             } else {
-                // If it's not facing the user, rotate it first
                 rotateCube(faceIndex);
             }
         }
@@ -338,6 +367,7 @@
 
 	</body>
 </html>
+
 
 
 
