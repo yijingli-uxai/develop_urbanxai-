@@ -66,3 +66,34 @@ img[src$=".gif"] {
     image-rendering: -webkit-optimize-contrast; /* Sharper edges */
     border: 2px solid #eee; /* Light border to frame the animation */
 }
+
+.pro-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: #000000; /* Dark, professional base */
+  color: #ffffff !important;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-weight: 600;
+  border-radius: 50px; /* Makes it a pill shape */
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pro-button:hover {
+  background-color: #333333; /* Slightly lighter on hover */
+  transform: translateY(-2px); /* Lift effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
+
+.pro-button .icon {
+  font-size: 1.1em;
+  transition: transform 0.2s;
+}
+
+.pro-button:hover .icon {
+  transform: translate(2px, -2px); /* Arrow moves slightly up and right */
+}
