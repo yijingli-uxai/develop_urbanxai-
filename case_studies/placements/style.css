@@ -97,3 +97,20 @@ img[src$=".gif"] {
 .pro-button:hover .icon {
   transform: translate(2px, -2px); /* Arrow moves slightly up and right */
 }
+
+.back-btn-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+}
+
+.back-btn-icon svg {
+  transition: transform 0.2s ease;
+}
+
+.back-btn-icon:hover svg {
+  transform: translateX(-3px);
+}
