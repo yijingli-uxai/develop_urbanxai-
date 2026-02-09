@@ -61,3 +61,8 @@ body { font-family: 'Inter', sans-serif; color: var(--text); margin: 0; backgrou
 .arrow {
     font-size: 1.5rem;
 }
+
+img[src$=".gif"] {
+    image-rendering: -webkit-optimize-contrast; /* Sharper edges */
+    border: 2px solid #eee; /* Light border to frame the animation */
+}
