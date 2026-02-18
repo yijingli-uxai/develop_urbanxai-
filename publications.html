@@ -3,126 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publications | The Team</title>
-    <link rel="stylesheet" href="style.css"> <style>
-        .pub-layout { display: flex; gap: 40px; margin-top: 50px; }
-        .sidebar { width: 250px; position: sticky; top: 20px; height: fit-content; }
-        .filter-btn { display: block; width: 100%; text-align: left; padding: 10px; border: none; background: none; cursor: pointer; border-left: 3px solid #eee; }
-        .filter-btn.active { border-left: 3px solid #333; font-weight: bold; }
-        
-        .pub-card { margin-bottom: 40px; display: flex; gap: 20px; align-items: start; }
-        .pub-img { width: 200px; height: 140px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
-        .pub-info { flex: 1; }
-        .pub-title { font-size: 1.2rem; margin: 0 0 5px 0; color: #222; }
-        .pub-abstract { font-size: 0.9rem; color: #555; background: #f9f9f9; padding: 15px; margin-top: 10px; border-radius: 5px; display: none; }
-        .show-abstract-btn { font-size: 0.8rem; cursor: pointer; color: #007bff; text-decoration: underline; }
-    </style>
+    <title>Publications | Yijing Li</title>
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
 
 <div class="container">
-    <a href="index.html">← Back to Home</a>
-    <h1>Publications</h1>
+    <header style="margin-bottom: 40px;">
+        <a href="index.html" style="text-decoration: none; color: #666;">← Back to Portfolio</a>
+        <h1 style="font-size: 2.5rem; margin-top: 10px;">Research Publications</h1>
+        <p>Exploring urban dynamics through the lens of AI and UX.</p>
+    </header>
 
     <div class="pub-layout">
         <aside class="sidebar">
-            <h3>Dimensions</h3>
+            <h3 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: #888;">Dimensions</h3>
             <button class="filter-btn active" onclick="filterSelection('all')">All Research</button>
-            <button class="filter-btn" onclick="filterSelection('dim1')">Urban Safety</button>
-            <button class="filter-btn" onclick="filterSelection('dim2')">Urban Health</button>
-            <button class="filter-btn" onclick="filterSelection('dim3')">Urban Mobility</button>
-            <button class="filter-btn" onclick="filterSelection('dim4')">Urban Sustainability</button>
-            <button class="filter-btn" onclick="filterSelection('dim5')">Urban Inequality</button>
-            <button class="filter-btn" onclick="filterSelection('dim6')">Urban Resilience</button>
+            <button class="filter-btn" onclick="filterSelection('safety')">Urban Safety</button>
+            <button class="filter-btn" onclick="filterSelection('health')">Urban Health</button>
+            <button class="filter-btn" onclick="filterSelection('mobility')">Urban Mobility</button>
+            <button class="filter-btn" onclick="filterSelection('sustainability')">Urban Sustainability</button>
+            <button class="filter-btn" onclick="filterSelection('inequality')">Urban Inequality</button>
+            <button class="filter-btn" onclick="filterSelection('resilience')">Urban Resilience</button>
         </aside>
 
         <main class="pub-list">
             
-            <div class="pub-card dim1 dim4">
-                <img src="assets/graphs/paper1-graph.jpg" alt="Paper Graph" class="pub-img">
+            <div class="pub-card safety resilience">
+                <div class="pub-graph-wrapper">
+                    <img src="assets/graphs/safety-study-01.png" alt="Safety Analysis Graph" class="pub-img">
+                    <span class="zoom-hint">Click to enlarge</span>
+                </div>
                 <div class="pub-info">
-                    <h3 class="pub-title">Urban Safet</h3>
-                    <p><em>.... journal, 2024</em></p>
-                    <a href="https://doi.org/..." target="_blank">[Publisher Link]</a>
-                    <span class="show-abstract-btn" onclick="toggleAbstract(this)">Show Abstract</span>
+                    <h3 class="pub-title">AI-Driven Spatiotemporal Analysis of Urban Safety</h3>
+                    <p class="pub-venue"><em>Journal of Urban Computing, 2025</em></p>
+                    
+                    <div class="pub-links">
+                        <a href="#" target="_blank">Paper Link</a> • 
+                        <a href="#" target="_blank">PDF</a> • 
+                        <span class="toggle-link" onclick="toggleAbstract(this)">View Abstract</span>
+                    </div>
+
                     <div class="pub-abstract">
-                        This paper explores the ... (abstract tbc).
+                        <strong>Abstract:</strong> This research leverages deep learning to identify safety patterns in high-density urban environments. By analyzing... (Add your specific abstract text here).
                     </div>
                 </div>
             </div>
 
-            <div class="pub-card dim2 dim3">
-                <img src="assets/graphs/paper2-graph.jpg" alt="Paper Graph" class="pub-img">
-                <div class="pub-info">
-                    <h3 class="pub-title">Urban Health</button>
-                    <p><em>........, 2023</em></p>
-                    <a href="https://doi.org/..." target="_blank">[PDF]</a>
-                    <span class="show-abstract-btn" onclick="toggleAbstract(this)">Show Abstract</span>
-                    <div class="pub-abstract">
-                        A novel approach to ...
-                    </div>
-                </div>
-            </div>
-
-        </main>
+            </main>
     </div>
 </div>
 
 <script>
     function filterSelection(c) {
-        const cards = document.getElementsByClassName("pub-card");
-        const btns = document.getElementsByClassName("filter-btn");
+        const cards = document.querySelectorAll(".pub-card");
+        const btns = document.querySelectorAll(".filter-btn");
         
-        // Update active button styling
-        for (let btn of btns) {
+        btns.forEach(btn => {
             btn.classList.remove("active");
-            if (btn.innerText.toLowerCase().includes(c) || (c === 'all' && btn.innerText.includes('All'))) {
+            if (btn.getAttribute('onclick').includes(`'${c}'`)) {
                 btn.classList.add("active");
             }
-        }
+        });
 
-        // Filter cards
-        for (let card of cards) {
+        cards.forEach(card => {
             if (c === "all" || card.classList.contains(c)) {
                 card.style.display = "flex";
             } else {
                 card.style.display = "none";
             }
-        }
+        });
     }
 
-    function toggleAbstract(btn) {
-        const abstract = btn.nextElementSibling;
+    function toggleAbstract(el) {
+        const abstract = el.parentElement.nextElementSibling;
         if (abstract.style.display === "block") {
             abstract.style.display = "none";
-            btn.innerText = "Show Abstract";
+            el.innerText = "View Abstract";
         } else {
             abstract.style.display = "block";
-            btn.innerText = "Hide Abstract";
+            el.innerText = "Hide Abstract";
         }
     }
-
-    // Publication Filtering Logic
-function filterSelection(c) {
-  const cards = document.querySelectorAll(".pub-card");
-  const btns = document.querySelectorAll(".filter-btn");
-
-  btns.forEach(btn => {
-    btn.classList.remove("active");
-    // This matches the button to the category
-    if (btn.getAttribute('onclick').includes(`'${c}'`)) {
-      btn.classList.add("active");
-    }
-  });
-
-  cards.forEach(card => {
-    if (c === "all" || card.classList.contains(c)) {
-      card.style.display = "flex";
-    } else {
-      card.style.display = "none";
-    }
-  });
-}
 </script>
 
 </body>
