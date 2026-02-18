@@ -101,6 +101,28 @@
             btn.innerText = "Hide Abstract";
         }
     }
+
+    // Publication Filtering Logic
+function filterSelection(c) {
+  const cards = document.querySelectorAll(".pub-card");
+  const btns = document.querySelectorAll(".filter-btn");
+
+  btns.forEach(btn => {
+    btn.classList.remove("active");
+    // This matches the button to the category
+    if (btn.getAttribute('onclick').includes(`'${c}'`)) {
+      btn.classList.add("active");
+    }
+  });
+
+  cards.forEach(card => {
+    if (c === "all" || card.classList.contains(c)) {
+      card.style.display = "flex";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
 </script>
 
 </body>
