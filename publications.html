@@ -4,7 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publications | The UrbanX AI+ Team</title>
-    <link rel="stylesheet" href="style.css"> 
+<style>
+        :root {
+            --primary: #2563eb;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --bg: #f9fafb;
+            --sidebar-width: 240px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Layout Structure */
+        .pub-layout {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            gap: 40px;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            position: sticky;
+            top: 40px;
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            background-color: #f3f4f6;
+            color: var(--text-main);
+        }
+
+        .filter-btn.active {
+            background-color: #eef2ff;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Content Area */
+        .main-content {
+            flex: 1;
+        }
+
+        /* Publication Cards */
+        .filterDiv {
+            display: none; /* Hidden by default, shown by JS */
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            border: 1px solid #f0f0f0;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pub-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .pub-authors { font-size: 0.9rem; margin-bottom: 5px; }
+        .me { font-weight: bold; text-decoration: underline; }
+        .pub-venue { font-style: italic; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px; }
+
+        .tag {
+            display: inline-block;
+            background: #f3f4f6;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-right: 5px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .pub-layout { flex-direction: column; }
+            .sidebar { width: 100%; position: relative; top: 0; }
+        }
+    </style>
 </head>
 <body>
 
@@ -15,51 +131,52 @@
         <p>Exploring urban dynamics through the lens of Urban Analytical AI+.</p>
     </header>
 
-    <div class="pub-layout">
-        <aside class="sidebar">
-            <h3 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: #888;">Dimensions</h3>
-            <button class="filter-btn active" onclick="filterSelection('all')">All Research</button>
-            <button class="filter-btn" onclick="filterSelection('safety')">Urban Safety</button>
-            <button class="filter-btn" onclick="filterSelection('health')">Urban Health</button>
-            <button class="filter-btn" onclick="filterSelection('mobility')">Urban Mobility</button>
-            <button class="filter-btn" onclick="filterSelection('sustainability')">Urban Sustainability</button>
-            <button class="filter-btn" onclick="filterSelection('inequality')">Urban Inequality</button>
-            <button class="filter-btn" onclick="filterSelection('resilience')">Urban Resilience</button>
-        </aside>
+<div class="pub-layout">
+    <aside class="sidebar">
+        <h3 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: #888;">Dimensions</h3>
+        <button class="filter-btn active" onclick="filterSelection('all')">All Research</button>
+        <button class="filter-btn" onclick="filterSelection('safety')">Urban Safety</button>
+        <button class="filter-btn" onclick="filterSelection('health')">Urban Health</button>
+        <button class="filter-btn" onclick="filterSelection('mobility')">Urban Mobility</button>
+        <button class="filter-btn" onclick="filterSelection('sustainability')">Urban Sustainability</button>
+        <button class="filter-btn" onclick="filterSelection('inequality')">Urban Inequality</button>
+        <button class="filter-btn" onclick="filterSelection('resilience')">Urban Resilience</button>
+    </aside>
 
-        <main class="pub-list">
-            
-            <div class="pub-card safety mobility"> 
-                <div class="pub-graph-wrapper">
-                    <img src="assets/graphs/sport-crime-london.jpg" alt="Spatial distribution of GTWR coefficients for Subway Tap-in and Sports Clubs" class="pub-img">
-                    <span class="zoom-hint">Spatial Patterns of Mobility and Sport Clubs</span>
-                </div>
-                <div class="pub-info">
-                    <h3 class="pub-title">Are Sport Clubs Mediating Urban Expressive Crimes?—London as the Case Study</h3>
-                    <p class="pub-venue"><em>ISPRS International Journal of Geo-Information, 2025</em></p>
-                    
-                    <div class="pub-links">
+
+    <main class="main-content">
+        <div class="filterDiv safety mobility">
+            <div class="pub-title">Are Sport Clubs Mediating Urban Expressive Crimes?—London as the Case Study</div>
+            <div class="pub-authors"><span class="me">Rui Wang, Yijing Li, Sandeep Broca,Zakir Patel and Inderpal Sahota </span></div>
+            <div class="pub-venue">ISPRS International Journal of Geo-Information, 2025</div>
+            <div><span class="tag">Safety</span><span class="tag">Mobility</span></div>
+            <div class="pub-links">
                         <a href="https://doi.org/10.3390/ijgi14110409" target="_blank">Paper Link</a> • 
                         <a href="https://kclpure.kcl.ac.uk/ws/portalfiles/portal/355181379/Are_Sport_Clubs_Mediating_Urban_Expressive_Crimes_London_as_the_Case_Study_Version_of_Record.pdf" target="_blank">PDF</a> • 
                         <span class="toggle-link" onclick="toggleAbstract(this)">View Abstract</span>
-                    </div>
-
-                    <div class="pub-abstract">
-                        <strong>Abstract:</strong> This study investigates the spatiotemporal relationship between major sporting events and expressive crimes in London, focusing on the Tottenham Hotspur Stadium area. Using Seasonal-trend decomposition (STL) and a Difference-in-Differences (DiD) framework, the research identifies that match days significantly drive expressive crimes in the vicinity. Furthermore, a Geographically Temporal Weighted Regression (GTWR) model (R²=0.83) reveals how underground passenger mobility and the presence of sports clubs mediate these crime patterns, suggesting that transit hubs and club locations serve as critical nodes for urban safety interventions..
-                    </div>
-                </div>
             </div>
+            <div class="pub-abstract">
+                        <strong>Abstract:</strong> This study investigates the spatiotemporal relationship between major sporting events and expressive crimes in London, focusing on the Tottenham Hotspur Stadium area. Using Seasonal-trend decomposition (STL) and a Difference-in-Differences (DiD) framework, the research identifies that match days significantly drive expressive crimes in the vicinity. Furthermore, a Geographically Temporal Weighted Regression (GTWR) model (R²=0.83) reveals how underground passenger mobility and the presence of sports clubs mediate these crime patterns, suggesting that transit hubs and club locations serve as critical nodes for urban safety interventions..
+            </div>
+        </div>
 
-            <div class="pub-card sustainability"> 
-                <div class="pub-graph-wrapper">
-                    <img src="assets/graphs/kings_building.jpg" alt="Recognised plantable buildings at King's College London" class="pub-img">
-                    <span class="zoom-hint">Case study: plantable King's Buildings</span>
-                </div>
-                <div class="pub-info">
-                    <h3 class="pub-title">Mask R-CNN algorithm on detecting plantable urban roofs from aerial photography images in Central London, UK</h3>
-                    <p class="pub-venue"><em>Remote Sensing Applications: Society and Environment, 2025</em></p>
-                    
-                    <div class="pub-links">
+        <div class="filterDiv sustainability">
+            <div class="pub-title">Mask R-CNN algorithm on detecting plantable urban roofs from aerial photography images in Central London, UK</div>
+            <div class="pub-authors">Rongsheng Zheng, Yijing Li</span></div>
+             a
+, 
+Zhixi Lin a
+, 
+Yijing Li a
+, 
+Leanne Werner b
+, 
+Amin Karami c
+, 
+Nicola Hogan d e
+            <div class="pub-venue">Remote Sensing Applications: Society and Environment, 2025</div>
+            <div><span class="tag">Sustainability</span></div>
+            <div class="pub-links">
                         <a href="https://doi.org/10.1016/j.rsase.2025.101791" target="_blank">Paper Link</a> • 
                         <a href="https://kclpure.kcl.ac.uk/ws/portalfiles/portal/359511845/Mask_R-CNN_algorithm_on_detecting_plantable_urban_roofs_from_aerial_photography_images_in_Central_London_Version_of_Record.pdf" target="_blank">PDF</a> • 
                         <span class="toggle-link" onclick="toggleAbstract(this)">View Abstract</span>
@@ -68,6 +185,14 @@
                     <div class="pub-abstract">
                         <strong>Abstract:</strong> Urban greening is crucial for sustainable urban development and has gained significant attention from governments and the public for its support of biodiversity and energy reduction within buildings. Unlike traditional horizontal urban greening projects to expand greenspace, this study introduces an alternative, rooftop greening, and aims to use the vertical space of the city to increase urban greenspace and restore urban biodiversity. The study uses the Mask R-CNN instance segmentation deep learning algorithm, and superimposes it onto London’s aerial photography images, to develop a transferable model that can help identify potential rooftop greening spaces, while also obtaining the spatial location of buildings and the number of buildings that can cope with refined urban planning. The results show that the model has an high accuracy in extracting buildings from remote sensing images. The model is applied to buildings owned by King’s College London, located within the London borough of Southwark, as a case study, in assistance with multimodal data to derive environmental features on sunlight and wind speed, so to demonstrate the model’s robustness and generalization ability in London context. The application of the research could help refine urban planning and urban greening in other UK urban contexts.
                     </div>
+        </div>
+        
+        </main>
+
+    
+
+                    
+                   
                 </div>
             </div>
             
@@ -76,35 +201,48 @@
 </div>
 
 <script>
+    // Filtering Logic
+    filterSelection("all")
     function filterSelection(c) {
-        const cards = document.querySelectorAll(".pub-card");
-        const btns = document.querySelectorAll(".filter-btn");
-        
-        btns.forEach(btn => {
-            btn.classList.remove("active");
-            if (btn.getAttribute('onclick').includes(`'${c}'`)) {
-                btn.classList.add("active");
-            }
-        });
-
-        cards.forEach(card => {
-            if (c === "all" || card.classList.contains(c)) {
-                card.style.display = "flex";
-            } else {
-                card.style.display = "none";
-            }
-        });
+      var x, i;
+      x = document.getElementsByClassName("filterDiv");
+      if (c == "all") c = "";
+      for (i = 0; i < x.length; i++) {
+        w3RemoveClass(x[i], "show");
+        if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+      }
     }
 
-    function toggleAbstract(el) {
-        const abstract = el.parentElement.nextElementSibling;
-        if (abstract.style.display === "block") {
-            abstract.style.display = "none";
-            el.innerText = "View Abstract";
-        } else {
-            abstract.style.display = "block";
-            el.innerText = "Hide Abstract";
+    function w3AddClass(element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+      }
+    }
+
+    function w3RemoveClass(element, name) {
+      var i, arr1, arr2;
+      arr1 = element.className.split(" ");
+      arr2 = name.split(" ");
+      for (i = 0; i < arr2.length; i++) {
+        while (arr1.indexOf(arr2[i]) > -1) {
+          arr1.splice(arr1.indexOf(arr2[i]), 1);     
         }
+      }
+      element.className = arr1.join(" ");
+    }
+
+    // Add active class to the current button
+    var btnContainer = document.querySelector(".sidebar");
+    var btns = btnContainer.getElementsByClassName("filter-btn");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function(){
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+      });
     }
 </script>
 
