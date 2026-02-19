@@ -327,3 +327,10 @@ footer {
     .pub-img { width: 100%; }
 }
 
+/* Base styles for mobile */
+body { font-size: 16px; }
+
+/* Styles for tablets and larger (screens > 768px) */
+@media screen and (min-width: 768px) {
+  body { font-size: 18px; }
+}
