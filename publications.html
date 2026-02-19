@@ -148,22 +148,22 @@
 
 <div class="pub-layout">
     <aside class="sidebar">
-        <div class="search-container">
-            <h3 style="font-size: 0.8rem; text-transform: uppercase; color: #999; margin-bottom: 10px;">Find Research</h3>
-            <input type="text" id="pubSearch" placeholder="Search titles or keywords..." onkeyup="runFilter()">
-        </div>
+    <div class="search-container">
+        <h3 style="font-size: 0.8rem; text-transform: uppercase; color: #999; margin-bottom: 10px;">Find Research</h3>
+        <input type="text" id="pubSearch" placeholder="Search titles or keywords..." onkeyup="runFilter()">
+    </div>
 
-        <div class="filter-group" id="filterGroup">
-            <h3 style="font-size: 0.8rem; text-transform: uppercase; color: #999; margin-bottom: 10px;">Dimensions</h3>
-            <button class="filter-btn active" data-filter="all">All Research</button>
-            <button class="filter-btn" data-filter="safety">Urban Safety</button>
-            <button class="filter-btn" data-filter="health">Urban Health</button>
-            <button class="filter-btn" data-filter="mobility">Urban Mobility</button>
-            <button class="filter-btn" data-filter="sustainability">Urban Sustainability</button>
-            <button class="filter-btn" data-filter="mobility">Urban Inequality</button>
-            <button class="filter-btn" data-filter="sustainability">Urban Resilience</button>
-        </div>
-    </aside>
+    <div class="filter-group" id="filterGroup">
+        <h3 style="font-size: 0.8rem; text-transform: uppercase; color: #999; margin-bottom: 10px;">Dimensions</h3>
+        <button class="filter-btn active" data-filter="all" onclick="runFilter(this)">All Research</button>
+        <button class="filter-btn" data-filter="safety" onclick="runFilter(this)">Urban Safety</button>
+        <button class="filter-btn" data-filter="health" onclick="runFilter(this)">Urban Health</button>
+        <button class="filter-btn" data-filter="mobility" onclick="runFilter(this)">Urban Mobility</button>
+        <button class="filter-btn" data-filter="sustainability" onclick="runFilter(this)">Urban Sustainability</button>
+        <button class="filter-btn" data-filter="inequality" onclick="runFilter(this)">Urban Inequality</button>
+        <button class="filter-btn" data-filter="resilience" onclick="runFilter(this)">Urban Resilience</button>
+    </div>
+</aside>
 
 
     <main class="main-content" id="pubList">
@@ -244,49 +244,44 @@
 </div>
 
 <script>
-    // Filtering Logic
-    filterSelection("all")
-    function filterSelection(c) {
-      var x, i;
-      x = document.getElementsByClassName("filterDiv");
-      if (c == "all") c = "";
-      for (i = 0; i < x.length; i++) {
-        w3RemoveClass(x[i], "show");
-        if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
-      }
+    function runFilter(clickedBtn) {
+    // 1. Handle Active Button States
+    if (clickedBtn) {
+        const btns = document.querySelectorAll('.filter-btn');
+        btns.forEach(btn => btn.classList.remove('active'));
+        clickedBtn.classList.add('active');
     }
 
-    function w3AddClass(element, name) {
-      var i, arr1, arr2;
-      arr1 = element.className.split(" ");
-      arr2 = name.split(" ");
-      for (i = 0; i < arr2.length; i++) {
-        if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
-      }
-    }
+    // 2. Get current filter values
+    const activeBtn = document.querySelector('.filter-btn.active');
+    const categoryFilter = activeBtn.getAttribute('data-filter');
+    const searchQuery = document.getElementById('pubSearch').value.toLowerCase();
+    
+    // 3. Get all publication cards
+    const cards = document.querySelectorAll('.pub-card');
 
-    function w3RemoveClass(element, name) {
-      var i, arr1, arr2;
-      arr1 = element.className.split(" ");
-      arr2 = name.split(" ");
-      for (i = 0; i < arr2.length; i++) {
-        while (arr1.indexOf(arr2[i]) > -1) {
-          arr1.splice(arr1.indexOf(arr2[i]), 1);     
+    cards.forEach(card => {
+        const cardText = card.innerText.toLowerCase();
+        const cardCategories = card.getAttribute('data-category') || "";
+        
+        // Logical check: 
+        // Match Category if it's 'all' OR if the card's data-category contains the filter
+        const matchesCategory = (categoryFilter === 'all' || cardCategories.includes(categoryFilter));
+        
+        // Match Search if search bar is empty OR text is found
+        const matchesSearch = (searchQuery === "" || cardText.includes(searchQuery));
+
+        // 4. Show/Hide based on both conditions
+        if (matchesCategory && matchesSearch) {
+            card.classList.add('visible');
+        } else {
+            card.classList.remove('visible');
         }
-      }
-      element.className = arr1.join(" ");
-    }
+    });
+}
 
-    // Add active class to the current button
-    var btnContainer = document.querySelector(".sidebar");
-    var btns = btnContainer.getElementsByClassName("filter-btn");
-    for (var i = 0; i < btns.length; i++) {
-      btns[i].addEventListener("click", function(){
-        var current = document.getElementsByClassName("active");
-        current[0].className = current[0].className.replace(" active", "");
-        this.className += " active";
-      });
-    }
+// Ensure the page starts correctly
+window.onload = () => runFilter();
 </script>
 
 </body>
